@@ -3,17 +3,20 @@ import NoteList from './notelist/NoteList'
 import ZeroNote from './zeronote/ZeroNote'
 
 
-const NoteContainer = () => {
-  const [isNotEmpty, setIsNoTEmplty]=useState(false)
+const NoteContainer = ({noteValue}) => {
+ const isNotEmpty = noteValue.length>0
   return (
     <div>
-       {
-        isNotEmpty &&
-        <NoteList/>
-        ||
-        <ZeroNote/>
+         
+        { 
         
-        }
+        isNotEmpty?
+         <NoteList noteValue={noteValue}/>
+         :
+         <ZeroNote/>
+       }
+        
+        
     </div>
   )
 }

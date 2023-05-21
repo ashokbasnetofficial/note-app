@@ -1,16 +1,12 @@
 import './App.css';
-import NoteCategory from './component/NoteCategory/NoteCategory';
-import NoteContainer from './component/notecontainer/NoteContainer';
-import Search from './component/search/search';
+
+import Container from './component/container/Container';
+
 function App() {
   return (
     <>
        <div className="container_fluid">
-        <div className="container d-flex flex-column ">
-           <Search />
-           <NoteCategory/>
-           <NoteContainer/>
-        </div>
+        <Container/>
        </div>
     </>
   );

@@ -1,24 +1,23 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 const options = [
     {
-        value: 'Select Category',
-        label: 'Select Category',
-    },
-    {
         value: 'home',
         label: 'Home',
+        bgcolor:'#ff9100'
     },
     {
         value: 'personal',
         label: 'Personal',
+        bgcolor:'#88c98b'
     },
     {
         value: 'work',
         label: 'Work',
+        bgcolor:'#5c6bc0'
     },
 ];
 
@@ -33,7 +32,42 @@ const style = {
     boxShadow: 24,
     p: 0,
 };
-const ModalBox = ({ open, handleClose }) => {
+const ModalBox = ({ open, handleClose,noteValue,setNoteValue}) => {
+    const [subject,setSubject]=useState('');
+    const [description,setDescription]=useState('');
+    const [category,setCategory]=useState('');
+    const [categorybg,setCategoryBg]=useState('')
+    const handleSelect=(event)=>{
+       const category =event.target.value;
+       const bg =options.find((option)=>option.value===category)?.bgcolor||'#fff'
+       console.log(bg)
+       if(category==='default'){
+        return;
+
+       }
+       else{
+        setCategory(category)
+        setCategoryBg(bg)
+       }
+     }
+   
+
+    
+    const handleForm =(event)=>{
+        event.preventDefault();
+        let values ={
+            subject:subject,
+            description:description,
+            category:category,
+             cardbg:categorybg
+        }
+        setNoteValue([...noteValue,values])
+   
+        setDescription('')
+        setSubject('')
+        setCategory('')
+         handleClose();
+    } 
 
 
     return (
@@ -50,17 +84,30 @@ const ModalBox = ({ open, handleClose }) => {
                         <hr />
                     </div>
                     <div className="form-group px-4 mt-4">
-                        <form action="" method="get">
+                        <form action="" method="get" onSubmit={handleForm}>
                             <div className="row">
                                 <div className="col-8">
-                                    <input type="text" className="form-control" placeholder='Add title...' />
+                                    <input 
+                                    type="text" 
+                                    value={subject}
+                                    className="form-control" 
+                                    placeholder='Add title...' 
+                                    onChange={(event)=>setSubject(event.target.value)}
+                                    required
+                                    />
                                 </div>
                                 <div className="col-4">
-                                    <select class="form-select form-control" aria-label="Default select example">
-                                        <option selected>Select Category</option>
+                                    <select 
+                                    className="form-select form-control" 
+                                    aria-label="select category"
+                                    name='category'
+                                   onChange={handleSelect}
+                                   value={category}
+                                    >
+                                        <option value ='default'>Select Category</option>
                                         {
                                             options.map((option, key) => {
-                                                return <option key={key} value={option.value}>{option.label}</option>
+                                                return <option key={key}  value={option.value}>{option.label}</option>
                                             })
                                         }
                                     </select>
@@ -73,9 +120,12 @@ const ModalBox = ({ open, handleClose }) => {
                                             sx={{resize:"none !important"}}
                                             className="form-control"
                                             id="description"
+                                            value={description}
                                             placeholder='Add description...'
                                             rows="10"
-                                          
+                                            name='description'
+                                            onChange={(event)=>setDescription(event.target.value)}
+                                            required
                                         ></textarea>
                                     </div>
                                    
@@ -84,7 +134,7 @@ const ModalBox = ({ open, handleClose }) => {
                                          <Stack direction="row">
                                             <Box sx={{ flexGrow: 1, fontWeight:'600'}}  /> 
                                             <Button variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}} onClick={handleClose}>cancel</Button>
-                                            <Button variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}}>add</Button>
+                                            <Button type='submit' variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}} >add</Button>
                                         </Stack>
                                     </div>
                             </div>
