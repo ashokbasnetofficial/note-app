@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 import Card from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import EditIcon from '@mui/icons-material/Edit';
 import NoteProgress from './NoteProgress';
+import ModalBox from '../../modal/Modal';
 
 const currentDate = new Date();
 const formattedDate = currentDate.toLocaleDateString('en-US', {
@@ -16,16 +17,39 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
+
 const NoteList = (props) => {
+   const[updateopen,setUpdateOpen]=useState(false)
+    const handleDelete=(key)=>{
+
+      const updateNote = [...props.noteValue]
+      updateNote.splice(key,1)
+       props.setNoteValue(updateNote)
+    }
+    const handleCloseUpdate =()=>setUpdateOpen(false)
+    const editNote =(key)=>{
+         setUpdateOpen(true)
+       const newEditFile=  props.noteValue.map((note,id)=>{
+            if(key===id){
+                return 
+            }
+         })
+    }
+
     return (
         <div className="notelist mt-5">
             <NoteProgress />
             <div className="row">
              {
-                props.noteValue.map((value)=>{
-                    return <div className="col-6 mt-4 ">
+                props.noteValue.map((value,key)=>{
+                    return <div className="col-6 mt-4 " key={key}>
                     <Card sx={{backgroundColor:value.cardbg}}>
-                       <CardHeader sx={{color:'white'}}
+                       <CardHeader sx={{
+                        color:'white',
+                        typography:{
+                            fontSize:'1.5rem'
+                        }
+                       }}
                            avatar={
                                <IconButton>
                                    <Checkbox />
@@ -34,14 +58,14 @@ const NoteList = (props) => {
                            action={
                                <div>
                                    <IconButton>
-                                       <EditIcon />
+                                       <EditIcon onClick ={()=>editNote(key)} />
                                    </IconButton>
                                    <IconButton>
-                                       <DeleteIcon />
+                                       <DeleteIcon onClick={()=>handleDelete(key)}/>
                                    </IconButton>
                                </div>
                            }
-                           title={value.subject}
+                        title={value.subject}
    
                        />
    
@@ -61,6 +85,7 @@ const NoteList = (props) => {
              }
            
         </div>
+       
 </div>
 
     )

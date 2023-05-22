@@ -32,7 +32,7 @@ const style = {
     boxShadow: 24,
     p: 0,
 };
-const ModalBox = ({ open, handleClose,noteValue,setNoteValue}) => {
+const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue}) => {
     const [subject,setSubject]=useState('');
     const [description,setDescription]=useState('');
     const [category,setCategory]=useState('');
@@ -62,10 +62,12 @@ const ModalBox = ({ open, handleClose,noteValue,setNoteValue}) => {
              cardbg:categorybg
         }
         setNoteValue([...noteValue,values])
-   
+         if(type==='Add')
+       { 
         setDescription('')
         setSubject('')
         setCategory('')
+    }
          handleClose();
     } 
 
@@ -134,7 +136,7 @@ const ModalBox = ({ open, handleClose,noteValue,setNoteValue}) => {
                                          <Stack direction="row">
                                             <Box sx={{ flexGrow: 1, fontWeight:'600'}}  /> 
                                             <Button variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}} onClick={handleClose}>cancel</Button>
-                                            <Button type='submit' variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}} >add</Button>
+                                            <Button type='submit' variant="text" sx={{fontWeight:'800',fontSize:'1.1rem'}} >{type}</Button>
                                         </Stack>
                                     </div>
                             </div>

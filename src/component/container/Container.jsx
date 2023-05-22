@@ -4,37 +4,52 @@ import  Search from '../search/search'
 import NoteCategory from '../NoteCategory/NoteCategory'
 const Container = () => {
   const [noteCategory,setNoteCategory]=useState(false);
+  const [isSearch,setIsSearch] =useState(false);
   const [noteValue, setNoteValue] = useState(() => {
     const storedNoteValue = localStorage.getItem('noteValue');
     return storedNoteValue ? JSON.parse(storedNoteValue) : [];
   });
 const [filterNotes,setFilterNotes] = useState([]);
-console.log(filterNotes)
+const [searchNote,setSearchNote]=useState([])
+
+console.log()
   // Update local storage whenever noteValue changes
   useEffect(() => {
     localStorage.setItem('noteValue', JSON.stringify(noteValue));
   }, [noteValue]);
+  
     return (
     <div className="container d-flex flex-column ">
     <Search
      noteValue={noteValue}
-     setNoteValue={setNoteValue}
+    setSearchNote={setSearchNote}
+    setIsSearch={setIsSearch}
      />
     <NoteCategory
     noteValue={noteValue}
     setFilterNotes={setFilterNotes}
     setNoteValue={setNoteValue}
     setNoteCategory={setNoteCategory}
+    filterNotes={filterNotes}
   />
    {
-    noteCategory &&
+   ( noteCategory &&
     <NoteContainer
     noteValue={filterNotes} 
-    />
+    setNoteValue={setNoteValue}
+    />)
     ||
+   ( isSearch &&
     <NoteContainer
-    noteValue={noteValue} 
-    /> 
+    noteValue={searchNote} 
+    setNoteValue={setNoteValue}
+    /> )
+    ||
+    ( 
+      <NoteContainer
+      noteValue={noteValue} 
+      setNoteValue={setNoteValue}
+      /> )
    }
  </div>
   )

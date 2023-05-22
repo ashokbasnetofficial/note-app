@@ -3,7 +3,7 @@ import NoteList from './notelist/NoteList'
 import ZeroNote from './zeronote/ZeroNote'
 
 
-const NoteContainer = ({noteValue}) => {
+const NoteContainer = ({noteValue,setNoteValue}) => {
  const isNotEmpty = noteValue.length>0
   return (
     <div>
@@ -11,7 +11,10 @@ const NoteContainer = ({noteValue}) => {
         { 
         
         isNotEmpty?
-         <NoteList noteValue={noteValue}/>
+         <NoteList 
+         noteValue={noteValue}
+         setNoteValue={setNoteValue}
+         />
          :
          <ZeroNote/>
        }

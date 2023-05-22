@@ -1,7 +1,7 @@
 import React from 'react'
 import errorimg from '../../../img/errorimg.png'
 const style={
-    width:'25rem',
+    width:'24rem',
     height:'auto',
     objectFit:'cover'
 }
