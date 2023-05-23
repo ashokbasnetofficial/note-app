@@ -32,15 +32,23 @@ const style = {
     boxShadow: 24,
     p: 0,
 };
-const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue}) => {
+const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex}) => {
     const [subject,setSubject]=useState('');
     const [description,setDescription]=useState('');
     const [category,setCategory]=useState('');
     const [categorybg,setCategoryBg]=useState('')
+    useEffect(() => {
+        if (editNoteIndex !== -1 && noteValue[editNoteIndex]) {
+          setSubject(noteValue[editNoteIndex].subject);
+          setDescription(noteValue[editNoteIndex].description);
+          setCategory(noteValue[editNoteIndex].category);
+          setCategoryBg(noteValue[editNoteIndex].cardbg);
+        }
+      }, [editNoteIndex, noteValue]);
     const handleSelect=(event)=>{
        const category =event.target.value;
        const bg =options.find((option)=>option.value===category)?.bgcolor||'#fff'
-       console.log(bg)
+    
        if(category==='default'){
         return;
 
@@ -51,26 +59,35 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue}) => {
        }
      }
    
-
-    
-    const handleForm =(event)=>{
+  
+     const handleForm = (event) => {
         event.preventDefault();
-        let values ={
-            subject:subject,
-            description:description,
-            category:category,
-             cardbg:categorybg
-        }
-        setNoteValue([...noteValue,values])
-         if(type==='Add')
-       { 
-        setDescription('')
-        setSubject('')
-        setCategory('')
-    }
-         handleClose();
-    } 
-
+       
+        if (type === 'Add') {
+            let values = {
+                subject: subject,
+                description: description,
+                category: category,
+                cardbg: categorybg,
+              };
+          setNoteValue([...noteValue, values]);
+          setDescription('');
+          setSubject('');
+          setCategory('');
+        } else if (type === 'Update') {
+            // Update existing note
+            let updatedNoteValue = [...noteValue];
+            updatedNoteValue[editNoteIndex] = {
+              subject: subject,
+              description: description,
+              category: category,
+              cardbg: categorybg,
+            };
+            setNoteValue(updatedNoteValue);
+          }
+        handleClose();
+      };
+      
 
     return (
         <div>

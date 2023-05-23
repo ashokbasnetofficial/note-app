@@ -19,7 +19,11 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 });
 
 const NoteList = (props) => {
-   const[updateopen,setUpdateOpen]=useState(false)
+   const[updateopen,setUpdateOpen]=useState(false);
+   const [editNoteIndex, setEditNoteIndex] = useState(null);
+
+ 
+
     const handleDelete=(key)=>{
 
       const updateNote = [...props.noteValue]
@@ -29,11 +33,7 @@ const NoteList = (props) => {
     const handleCloseUpdate =()=>setUpdateOpen(false)
     const editNote =(key)=>{
          setUpdateOpen(true)
-       const newEditFile=  props.noteValue.map((note,id)=>{
-            if(key===id){
-                return 
-            }
-         })
+         setEditNoteIndex(key)
     }
 
     return (
@@ -85,7 +85,14 @@ const NoteList = (props) => {
              }
            
         </div>
-       
+        <ModalBox 
+        open={updateopen}
+        type='Update'
+        handleClose={handleCloseUpdate}
+        noteValue={props.noteValue}
+        setNoteValue={props.setNoteValue}
+        editNoteIndex={editNoteIndex}
+        />
 </div>
 
     )
