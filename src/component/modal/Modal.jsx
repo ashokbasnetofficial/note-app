@@ -45,6 +45,7 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,s
           setCategoryBg(noteValue[editNoteIndex].cardbg);
         }
       }, [editNoteIndex, noteValue]);
+      
     const handleSelect=(event)=>{
        const category =event.target.value;
        const bg =options.find((option)=>option.value===category)?.bgcolor||'#fff'
@@ -76,7 +77,8 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,s
           setSubject('');
           setCategory('');
           setBtnLabel('all')
-        } else if (type === 'Update') {
+        } 
+        else if (type === 'Update') {
             // Update existing note
             let updatedNoteValue = [...noteValue];
             updatedNoteValue[editNoteIndex] = {
@@ -86,7 +88,7 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,s
               cardbg: categorybg,
             };
             setNoteValue(updatedNoteValue);
-            setBtnLabel('all')
+        
           }
         handleClose();
       };

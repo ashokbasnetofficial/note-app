@@ -11,17 +11,19 @@ const Search = (props) => {
    
 useEffect(() => {
     if (searchInput !== '') {
+       
       props.setBtnLabel('all')
-      props.setIsSearch(true);
       let newNoteList = props.noteValue.filter((note) =>
         note.subject.includes(searchInput)
+
       );
-      console.log(newNoteList);
+      
       props.setSearchNote(newNoteList);
+      props.setIsSearch(true)
     } else {
       props.setIsSearch(false);
     }
-  }, [searchInput]);
+  }, [searchInput,props.noteValue]);
   
     return (
         <div className="searchbar mt-5">

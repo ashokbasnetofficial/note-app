@@ -9,9 +9,11 @@
   .container_fluid{
     background-color: #f5f5f5;
     min-height: 100vh;
+    position: relative;
   }
   .container{
     width: 60% !important;
+    min-height: 91vh;
   }
   ::placeholder{
     font-weight: 500 !important;
@@ -28,9 +30,12 @@
     box-shadow: none !important;
   }
   .footer{
-    
-    
-    width: 100%; 
+   display: flex;
+   width: 100%;
+   
+   flex-direction: column;
+   background-color: #1976d2;
+   margin-top: .5rem; 
   }
   @media (max-width: 1200px) {
     .container{

@@ -13,14 +13,15 @@ const Container = () => {
   const [filterNotes, setFilterNotes] = useState([]);
   const [searchNote, setSearchNote] = useState([])
 
-  console.log()
+  console.log(isSearch)
+  console.log(searchNote)
   // Update local storage whenever noteValue changes
   useEffect(() => {
     localStorage.setItem('noteValue', JSON.stringify(noteValue));
   }, [noteValue]);
 
   return (
-    <div className="container d-flex flex-column ">
+    <div className="container d-flex flex-column">
       <Search
         noteValue={noteValue}
         setSearchNote={setSearchNote}
@@ -37,23 +38,24 @@ const Container = () => {
         setBtnLabel={setBtnLabel}
       />
       {
-      (  
-        noteCategory&&
-        <NoteContainer
-            noteValue={filterNotes}
-            setNoteValue={setNoteValue}
-            setNoteCategory={setNoteCategory}
-            setBtnLabel={setBtnLabel}
-          />
-        )
-        ||
-        (isSearch &&
+        
+        isSearch &&
           <NoteContainer
             noteValue={searchNote}
             setNoteValue={setNoteValue}
             setNoteCategory={setNoteCategory}
             setBtnLabel={setBtnLabel}
-          />)
+           
+          />
+          ||
+        (  noteCategory &&
+          <NoteContainer
+          noteValue={filterNotes}
+          setNoteValue={setNoteValue}
+          setNoteCategory={setNoteCategory}
+          setBtnLabel={setBtnLabel}
+         
+        />)
         ||
         (
           <NoteContainer
