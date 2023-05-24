@@ -8,9 +8,10 @@ const Search = (props) => {
     const [searchInput, setSearchInput] = useState('');
   
    
-  
+   
 useEffect(() => {
     if (searchInput !== '') {
+      props.setBtnLabel('all')
       props.setIsSearch(true);
       let newNoteList = props.noteValue.filter((note) =>
         note.subject.includes(searchInput)

@@ -66,32 +66,37 @@ const NoteCategory = (
         setNoteValue,
         setFilterNotes,
         setNoteCategory,
-        filterNotes
+        setBtnLabel,
+        btnLabel
     }
 ) => {
-    const [open, setOpen] = useState(false);
-    const [btnLabel, setBtnLabel] = useState('all');
-
+    const [open, setOpen] = useState(false);   
     const handleCategory = (e) => {
-        const btn = e.currentTarget.innerText.toLowerCase();
-        setBtnLabel(btn)
-        console.log(btn)
-        let filterNote = noteValue.filter((note) => {
-            if (btn === 'all') {
-                return noteValue
-            }
-            else if (btn === note.category) {
-                return noteValue
-            }
-        }
-        )
-        setFilterNotes(filterNote);
+      const btn = e.currentTarget.innerText.toLowerCase();
+      setBtnLabel(btn)
+      console.log(btn)
+     
+  }
+    useEffect(()=>{
+   
+    let filterNote = noteValue.filter((note) => {
+      if ( btnLabel==='all') {
+          return noteValue
+      }
+      else if (btnLabel === note.category) {
+          return noteValue
+      }
+  }
+  )
+  setFilterNotes(filterNote);
 
-        setNoteCategory(true)
-    }
+  setNoteCategory(true)
+  },
+  [btnLabel,noteValue]
+  ) 
     const handleOpen = () => {
         setOpen(true);
-        setNoteCategory(false)
+       
     };
     const handleClose = () => setOpen(false);
     return (
@@ -122,7 +127,7 @@ const NoteCategory = (
                           );
                         }
                       
-                        // Check if btn category matches btnLabel
+                       
                         if (btn.label.toLowerCase() === btnLabel && btnLabel!='all') {
                           return (
                             <Button
@@ -175,6 +180,7 @@ const NoteCategory = (
                 handleOpen={handleOpen}
                 noteValue={noteValue}
                 setNoteValue={setNoteValue}
+                setBtnLabel={setBtnLabel}
             />
         </div>
     )

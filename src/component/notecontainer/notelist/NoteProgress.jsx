@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
-const NoteProgress = () => {
+const NoteProgress = ({count}) => {
+ 
   return (
    <>
    <div className="progressp d-flex flex-column">
     <div className="progress-title ">
         <p className="text-start text-secondary">
-            You have 0/3 notes completed
+            You have {count} totals notes
         </p>
     </div>
     <div className="progressbar mb-3">

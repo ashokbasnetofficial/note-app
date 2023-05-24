@@ -32,7 +32,7 @@ const style = {
     boxShadow: 24,
     p: 0,
 };
-const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex}) => {
+const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,setBtnLabel}) => {
     const [subject,setSubject]=useState('');
     const [description,setDescription]=useState('');
     const [category,setCategory]=useState('');
@@ -62,7 +62,7 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex})
   
      const handleForm = (event) => {
         event.preventDefault();
-       
+      
         if (type === 'Add') {
             let values = {
                 subject: subject,
@@ -70,10 +70,12 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex})
                 category: category,
                 cardbg: categorybg,
               };
+     
           setNoteValue([...noteValue, values]);
           setDescription('');
           setSubject('');
           setCategory('');
+          setBtnLabel('all')
         } else if (type === 'Update') {
             // Update existing note
             let updatedNoteValue = [...noteValue];
@@ -84,6 +86,7 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex})
               cardbg: categorybg,
             };
             setNoteValue(updatedNoteValue);
+            setBtnLabel('all')
           }
         handleClose();
       };

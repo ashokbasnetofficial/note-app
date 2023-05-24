@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 
 import Card from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
@@ -21,28 +21,40 @@ const formattedDate = currentDate.toLocaleDateString('en-US', {
 const NoteList = (props) => {
    const[updateopen,setUpdateOpen]=useState(false);
    const [editNoteIndex, setEditNoteIndex] = useState(null);
+   const [count,setCount]=useState(0);
 
- 
+    useEffect(()=>{
+        if(props.noteValue.length&&props.noteValue)
+       { const index = props.noteValue.length;
+    console.log(index)
+        setCount(index);
+        console.log(count)}
+    }, 
 
+    [count,props.noteValue]
+    )
     const handleDelete=(key)=>{
 
       const updateNote = [...props.noteValue]
       updateNote.splice(key,1)
-       props.setNoteValue(updateNote)
+       props.setNoteValue(updateNote);
+    
     }
     const handleCloseUpdate =()=>setUpdateOpen(false)
     const editNote =(key)=>{
          setUpdateOpen(true)
          setEditNoteIndex(key)
+       
+         
     }
-
+    
     return (
         <div className="notelist mt-5">
-            <NoteProgress />
+            <NoteProgress count={count}/>
             <div className="row">
              {
                 props.noteValue.map((value,key)=>{
-                    return <div className="col-6 mt-4 " key={key}>
+                    return <div className="col-sm-12 col-md-6 mt-4 " key={key}>
                     <Card sx={{backgroundColor:value.cardbg}}>
                        <CardHeader sx={{
                         color:'white',
@@ -92,6 +104,7 @@ const NoteList = (props) => {
         noteValue={props.noteValue}
         setNoteValue={props.setNoteValue}
         editNoteIndex={editNoteIndex}
+        setBtnLabel={props.setBtnLabel}
         />
 </div>
 
