@@ -103,14 +103,14 @@ const NoteCategory = (
 
         <div className="category mt-4">
 
-            <div className="d-flex justify-content-between">
-                <div className="category d-flex justify-content-evenly">
+            <div className="row">
+                <div className="col-lg-8 col-md-8 col-sm-12 d-flex">
                     {
                        btnCategory.map((btn, key) => {
                        
                         if (btn.all && btnLabel === 'all') {
                           return (
-                            <Button
+                            <Button className='d-flex'
                               key={key}
                               sx={
                                {
@@ -130,7 +130,8 @@ const NoteCategory = (
                        
                         if (btn.label.toLowerCase() === btnLabel && btnLabel!='all') {
                           return (
-                            <Button
+                            <Button 
+                            className='d-flex'
                               key={key}
                               sx={{
                                 display: 'flex',
@@ -154,6 +155,7 @@ const NoteCategory = (
                         // Default button rendering
                         return (
                           <Button
+                          className='d-flex'
                             key={key}
                             sx={
                               btn.sx
@@ -168,9 +170,13 @@ const NoteCategory = (
                       
                     }
                 </div>
-                <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpen} >
+                <div className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-end addnote">
+                
+                <Button variant="contained"  startIcon={<AddIcon />} onClick={handleOpen} >
                     Add Note
                 </Button>
+               
+                </div>
 
             </div>
             <ModalBox

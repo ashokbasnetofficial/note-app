@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+
 const options = [
     {
         value: 'home',
@@ -31,8 +32,10 @@ const style = {
     borderRadius: '.4rem',
     boxShadow: 24,
     p: 0,
+   
 };
 const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,setBtnLabel}) => {
+   
     const [subject,setSubject]=useState('');
     const [description,setDescription]=useState('');
     const [category,setCategory]=useState('');
@@ -102,7 +105,7 @@ const ModalBox = ({ open,type,handleClose,noteValue,setNoteValue,editNoteIndex,s
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={style} className='modalbox'>
                     <div className="modal-title px-4 mt-4">
                         <h4 >Add Note</h4>
                         <hr />

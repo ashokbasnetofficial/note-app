@@ -50,5 +50,15 @@
       width: 90% !important;
     }
     
+    .modalbox{
+      min-width: 80%;
+    }
 
+  }
+
+  @media (max-width: 540px) {
+   
+    .modalbox{
+      min-width: 95%;
+    }
   }
